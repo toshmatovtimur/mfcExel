@@ -1,0 +1,52 @@
+﻿<Window x:Class="exel_for_mfc.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        Icon="Resources\logomfc.png" ResizeMode="CanMinimize"
+        mc:Ignorable="d" WindowStartupLocation="CenterScreen"
+        Title="Авторизация" Height="300" Width="550">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Image Margin="119,23,1,0" Source="/Resources/123.jpg" Stretch="Fill" Grid.ColumnSpan="2" Grid.RowSpan="3" Grid.Column="1" Grid.Row="1"/>
+        <TextBlock Text="Логин"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Left"
+                   FontSize="22" Margin="71,0,0,0"/>
+        <TextBlock Text="Пароль"
+                   Grid.Row="1"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Left"
+                   FontSize="22" Margin="64,0,0,0"/>
+        <TextBox Grid.Row="0"
+                 FontSize="17"
+                 VerticalAlignment="Top"
+                 VerticalContentAlignment="Center"
+                 Height="30"
+                 Margin="166,23,35,0"
+                 x:Name="login_text" Grid.ColumnSpan="2" MouseEnter="Bo"/>
+        <PasswordBox PasswordChar="*"
+                     Grid.Row="1"
+                     FontSize="19"
+                     VerticalAlignment="Top"
+                     VerticalContentAlignment="Center"
+                     Height="30"
+                     Margin="166,23,35,0"
+                     x:Name="password_text" Grid.ColumnSpan="2" MouseEnter="Pa"/>
+        <Button Content="Войти"
+                Grid.Row="2"
+                Background="AliceBlue"
+                FontSize="17" Margin="180,7,52,17" Grid.ColumnSpan="2"
+                Click="Button_Click"/>
+    </Grid>
+</Window>

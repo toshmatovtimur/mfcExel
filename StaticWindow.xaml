@@ -1,0 +1,149 @@
+﻿<Window x:Class="exel_for_mfc.StaticWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+         ResizeMode="NoResize"
+        mc:Ignorable="d" 
+        Icon="Resources\logomfc.png"
+        WindowStartupLocation="CenterScreen"
+        Title="Статистические данные"
+        Height="450" Width="700">
+    <Window.Resources>
+        <StreamGeometry x:Key="Geometry">M12,24 L36,0 L36,48 Z</StreamGeometry>
+        <Style x:Key="FocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Path Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2" Data="{StaticResource Geometry}" Width="48"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD"/>
+        <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFC4E5F6"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B"/>
+        <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
+        <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
+        <Style x:Key="TriangleButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Path Name="border" Stroke="{TemplateBinding BorderBrush}" Fill="{TemplateBinding Background}" Data="{StaticResource Geometry}" Width="48"/>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter Property="Stroke" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Fill" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
+                                <Setter Property="Stroke" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Fill" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
+                                <Setter Property="Stroke" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Fill" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                <Setter Property="Stroke" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <RotateTransform x:Key="Rotate090" CenterX="24" CenterY="24" Angle="090"/>
+        <RotateTransform x:Key="Rotate180" CenterX="24" CenterY="24" Angle="180"/>
+        <RotateTransform x:Key="Rotate270" CenterX="24" CenterY="24" Angle="270"/>
+    </Window.Resources>
+    <Border Padding="5">
+        <Grid Background="Lavender">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBlock HorizontalAlignment="Left"
+                       VerticalAlignment="Center"
+                       FontSize="19"
+                       Grid.ColumnSpan="2"
+                       x:Name="Sert" Width="668"/>
+
+            <!-- Выплата -->
+            <DataGrid x:Name="payFilter"
+                      AutoGenerateColumns="False"
+                      Grid.Row="1" 
+                      Grid.Column="0"
+                      CanUserAddRows="False"
+                      CanUserDeleteRows="False"
+                      CanUserSortColumns="False"
+                      VerticalAlignment="Top"
+                      Grid.RowSpan="3"
+                      Height="171" Margin="2,0,23,0">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Pay, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="18" Width="150" IsReadOnly="True" Header="Выплаты"/>
+                    <DataGridTextColumn Binding="{Binding PayCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="18" Width="160"  IsReadOnly="True" Header="Количество"/>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <TextBlock HorizontalAlignment="Left"
+                       VerticalAlignment="Center"
+                       FontSize="25"
+                       Grid.Row="4"
+                       Grid.ColumnSpan="2"
+                       x:Name="payCount" Width="642"/>
+
+            <!-- Решения -->
+            <DataGrid x:Name="solFilter"
+                      AutoGenerateColumns="False"
+                      Grid.Row="1" 
+                      Grid.Column="1"
+                      CanUserAddRows="False"
+                      CanUserDeleteRows="False"
+                      CanUserSortColumns="False"
+                      VerticalAlignment="Top"
+                      Grid.RowSpan="3"
+                      Height="171" Margin="2,0,22,0">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding SolutionName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="18" Width="150"  IsReadOnly="True" Header="Решение"/>
+                    <DataGridTextColumn Binding="{Binding SolCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="18" Width="160"  IsReadOnly="True" Header="Количество"/>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <Button Grid.Row="5" Style="{DynamicResource TriangleButtonStyle}" Margin="142,20,157,41" Grid.RowSpan="2" Click="Button_Click_1"/>
+            <Button Grid.Row="5" Style="{DynamicResource TriangleButtonStyle}" RenderTransform="{StaticResource Rotate180}" Margin="127,21,172,39" Grid.RowSpan="2" Grid.Column="1" Click="Button_Click"/>
+            <TextBlock HorizontalAlignment="Left"
+                       Margin="289,30,0,0" 
+                       Grid.Row="5" 
+                       FontSize="18"
+                       TextWrapping="Wrap"
+                       VerticalAlignment="Top"
+                       Width="93" 
+                       Grid.ColumnSpan="2"
+                       Height="30"
+                       x:Name="YearXaml"/>
+            <TextBlock HorizontalAlignment="Right" 
+                       Margin="0,27,0,0" 
+                       Grid.Row="6" 
+                       TextWrapping="Wrap"
+                       VerticalAlignment="Top"
+                       Width="327"
+                       Height="23"
+                       FontStyle="Italic"
+                       x:Name="TotalAmountForAllTime" Grid.Column="1"/>
+        </Grid>
+    </Border>
+</Window>
